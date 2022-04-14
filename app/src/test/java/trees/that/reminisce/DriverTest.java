@@ -6,9 +6,9 @@ package trees.that.reminisce;
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
 
-public class AppTest {
+public class DriverTest {
     @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
+        Driver classUnderTest = new Driver();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
 }

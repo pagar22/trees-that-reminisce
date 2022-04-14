@@ -3,12 +3,12 @@
  */
 package trees.that.reminisce;
 
-public class App {
+public class Driver {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        System.out.println(new Driver().getGreeting());
     }
 }
