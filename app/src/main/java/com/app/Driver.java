@@ -15,7 +15,10 @@ public class Driver {
         tree.root = tree.insert(tree.root, 21);
         tree.root = tree.insert(tree.root, 25);
 
-        System.out.println(tree.delete(tree.root, 14));
-        tree.preOrder(tree.root);
+        System.out.println(tree.delete(tree.root, 15));
+        //tree.preOrder(tree.root);
+        System.out.println(tree);
+        System.out.println(tree.search(tree.root, 15));
+        //15 11 10 21 20 25
     }
 }

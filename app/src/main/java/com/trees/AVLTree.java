@@ -11,6 +11,11 @@ public class AVLTree {
             this.height = 0;
             this.left = this.right = null;
         }
+
+        @Override
+        public String toString() {
+            return Integer.toString(this.key);
+        }
     }
 
     public Node root;
@@ -25,6 +30,20 @@ public class AVLTree {
 
     private void updateHeight(Node node) {
         node.height = 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    private Node findSmallest(Node node) {
+        while (node.left != null) node = node.left;
+        return node;
+    }
+
+    public String preOrder(Node node, StringBuilder builder) {
+        if (node != null) {
+            builder.append(node.key).append(" ");
+            preOrder(node.left, builder);
+            preOrder(node.right, builder);
+        }
+        return builder.toString().trim();
     }
 
     //Right Rotate
@@ -109,17 +128,24 @@ public class AVLTree {
         return balance(node, key);
     }
 
-    private Node findSmallest(Node node) {
-        while (node.left != null) node = node.left;
-        return node;
+    public Node search(Node node, int key) {
+        if (node == null) return node;
+
+        if (key < node.key) return search(node.left, key);
+        else if (key > node.key) return search(node.right, key);
+        else return node;
+
     }
 
-    public void preOrder(Node node) {
-        if (node != null) {
-            System.out.print(node.key + " ");
-            preOrder(node.left);
-            preOrder(node.right);
-        }
+    @Override
+    public String toString() {
+
+        if(root == null) throw new NullPointerException("Tree is Empty :(");
+        StringBuilder builder = new StringBuilder(preOrder(root, new StringBuilder()))
+                .insert(0, "[")
+                .append("] ").append("[").append("H=").append(height(root)).append(" B=").append(balanceFactor(root)).append("]");
+
+        return builder.toString();
     }
 
 }
