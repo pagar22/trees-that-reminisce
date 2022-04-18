@@ -49,16 +49,8 @@ public class AVLTree {
         return x;
     }
 
-    public Node insert(Node node, int key) {
-        if(node == null) return new Node(key);
+    public Node balance(Node node, int key) {
 
-        if(node.key > key) {
-            node.left = insert(node.left, key);
-        } else if(node.key < key) {
-            node.right = insert(node.right, key);
-        } else throw new IllegalArgumentException("Cannot insert duplicate keys :(");
-
-        updateHeight(node);
         int balance = balanceFactor(node);
 
         //Left Heavy
@@ -78,9 +70,21 @@ public class AVLTree {
         return node;
     }
 
+    public Node insert(Node node, int key) {
+        if(node == null) return new Node(key);
+
+        if(node.key > key) {
+            node.left = insert(node.left, key);
+        } else if(node.key < key) {
+            node.right = insert(node.right, key);
+        } else throw new IllegalArgumentException("Cannot insert duplicate keys :(");
+
+        updateHeight(node);
+        return balance(node, key);
+    }
+
     public void preOrder(Node node) {
         if (node != null) {
-            System.out.print(node.height + "!");
             System.out.print(node.key + " ");
             preOrder(node.left);
             preOrder(node.right);
