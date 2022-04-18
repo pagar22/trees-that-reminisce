@@ -35,25 +35,25 @@ public class AVLTree<Item> {
     }
 
     //Right Rotate
-    private Node<Item> rightRotate(Node<Item> y) {
-        Node<Item> x = y.left;
-        Node<Item> z = x.right;
-        x.right = y;
-        y.left = z;
-        updateHeight(y);
-        updateHeight(x);
-        return x;
+    private Node<Item> rightRotate(Node<Item> parent) {
+        Node<Item> child = parent.left;
+        Node<Item> grandChild = child.right;
+        child.right = parent;
+        parent.left = grandChild;
+        updateHeight(parent);
+        updateHeight(child);
+        return child;
     }
 
     //Left Rotate
-    private Node<Item> leftRotate(Node<Item> y) {
-        Node<Item> x = y.right;
-        Node<Item> z = x.left;
-        x.left = y;
-        y.right = z;
-        updateHeight(y);
-        updateHeight(x);
-        return x;
+    private Node<Item> leftRotate(Node<Item> parent) {
+        Node<Item> child = parent.right;
+        Node<Item> grandChild = child.left;
+        child.left = parent;
+        parent.right = grandChild;
+        updateHeight(parent);
+        updateHeight(child);
+        return child;
     }
 
     public Node<Item> balance(Node<Item> node, Item key) {
