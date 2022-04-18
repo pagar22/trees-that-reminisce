@@ -23,7 +23,7 @@ public class AVLTree {
         return (node == null) ? 0 : (height(node.left) - height(node.right));
     }
 
-    private void updateHeight (Node node) {
+    private void updateHeight(Node node) {
         node.height = 1 + Math.max(height(node.left), height(node.right));
     }
 
@@ -71,9 +71,9 @@ public class AVLTree {
     }
 
     public Node insert(Node node, int key) {
-        if(node == null) return new Node(key);
+        if (node == null) return new Node(key);
 
-        if(node.key > key) {
+        if (node.key > key) {
             node.left = insert(node.left, key);
         } else if(node.key < key) {
             node.right = insert(node.right, key);
@@ -81,6 +81,37 @@ public class AVLTree {
 
         updateHeight(node);
         return balance(node, key);
+    }
+
+    public Node delete(Node node, int key) {
+        if (node == null) return node;
+
+        if (key > node.key)
+            node.right = delete(node.right, key);
+        else if (key < node.key)
+            node.left = delete(node.left, key);
+        else {
+            if (node.left == null && node.right == null)
+                node = null;
+            else if (node.left == null)
+                node = node.right;
+            else if (node.right == null)
+                node = node.left;
+            else {
+                Node successor = findSmallest(node.right);
+                node.key = successor.key;
+                node.right = delete(node.right, successor.key);
+            }
+        }
+        if (node == null) return node;
+
+        updateHeight(node);
+        return balance(node, key);
+    }
+
+    private Node findSmallest(Node node) {
+        while (node.left != null) node = node.left;
+        return node;
     }
 
     public void preOrder(Node node) {
