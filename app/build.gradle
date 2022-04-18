@@ -6,7 +6,7 @@ plugins {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.trees.Driver'
+        attributes 'Main-Class': 'com.app.Driver'
     }
 }
 
@@ -28,7 +28,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.trees.Driver'
+    mainClass = 'com.app.Driver'
 }
 
 tasks.named('test') {
