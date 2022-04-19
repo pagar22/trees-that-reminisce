@@ -1,6 +1,7 @@
 package com.app;
 
 import com.trees.AVLTree;
+import com.trees.BinaryTreeBase;
 import com.trees.Node;
 
 public class Driver {
@@ -11,8 +12,8 @@ public class Driver {
         tree.insert(tree.root, "Aaryan");
         tree.insert(tree.root, "Saniya");
         tree.insert(tree.root, "Diya");
-        //tree.insert(tree.root, "Parth");
-        //tree.insert(tree.root, "Zeira");
+        tree.insert(tree.root, "Parth");
+        tree.insert(tree.root, "Zeira");
         //tree.insert(tree.root, 14);
         //tree.insert(tree.root, 20);
         //tree.insert(tree.root, 21);
@@ -26,11 +27,8 @@ public class Driver {
         System.out.println(tree);
         System.out.println(tree.delete(tree.root, "Zeira"));
         System.out.println(tree);
-
-        System.out.println(tree.delete(tree.root, "Parth"));
+        tree.delete(tree.root, "Saniya");
         System.out.println(tree);
-        System.out.println(tree.delete(tree.root, "Zeira"));
-
-        System.out.println(tree);
+        System.out.println(tree.search(tree.root, "Saniya"));
     }
 }
