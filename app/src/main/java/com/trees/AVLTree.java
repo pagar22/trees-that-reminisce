@@ -1,6 +1,5 @@
 package com.trees;
 
-import java.security.Key;
 
 public class AVLTree<Item> extends BinaryTreeBase<Item> {
 
@@ -20,27 +19,17 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> {
         return root = balance(node, node.key);
     }
 
-
-    //Problem occurs when deleting the root when theres no successors
     @Override
     public Node<Item> delete(Node<Item> node, Item key) {
         if (isEmpty(search(node, key))) return null;
 
-        if (node.compareTo(key) > 0) {
-            System.out.println(node + "Node > key" + key);
+        if (node.compareTo(key) > 0)
             node.left = delete(node.left, key);
-            System.out.println(node.left + "returned recursion" + node);
-        }
-        else if (node.compareTo(key) < 0) {
-            System.out.println("Node < key" + node);
+        else if (node.compareTo(key) < 0)
             node.right = delete(node.right, key);
-        }
         else {
-            if (isEmpty(node.left) && isEmpty(node.right)) {
-                System.out.println(node + "No children");
+            if (isEmpty(node.left) && isEmpty(node.right))
                 node = null;
-                System.out.println(node + "No children");
-            }
             else if (isEmpty(node.left))
                 node = node.right;
             else if (isEmpty(node.right)) {
@@ -53,18 +42,11 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> {
             }
         }
 
-        if (node == null) {
-            System.out.println("NULLLL");
+        if (node == null)
             return null;
-        }
-
-        System.out.println(node + "REACHEDD");
-        System.out.println(this + "REACHEDD");
 
         updateHeight(node);
-        Node b = balance(node, node.key);
-        System.out.println(this + "REACHEDD");
-        return b;
+        return root = balance(node, node.key);
     }
 
     @Override
@@ -131,17 +113,15 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> {
 
         //Left Heavy
         if (balance > 1) {
-            if (node.left.compareTo(key) < 0)
+            if (node.compareTo(node.left.key) > 0)
                 node.left = leftRotate(node.left);
             return rightRotate(node);
         }
 
         //Right Heavy
         if (balance < -1) {
-            System.out.println(key + ", " + node.right.key + node.right.compareTo(key));
-            if(node.right.compareTo(key) > 0)
+            if(node.compareTo(node.right.key) < 0)
                 node.right = rightRotate(node.right);
-            System.out.println(this + "balance function");
             return leftRotate(node);
         }
 
