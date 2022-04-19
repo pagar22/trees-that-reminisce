@@ -1,32 +1,101 @@
 package com.trees;
 
-public class AVLTree<Item> {
+import java.security.Key;
+
+public class AVLTree<Item> extends BinaryTreeBase<Item> {
 
     public Node<Item> root;
 
+    @Override
+    public Node<Item> insert(Node<Item> node, Item key) {
+        if (isEmpty(node)) return root = new Node<>(key);
+
+        if (node.compareTo(key) > 0) {
+            node.left = insert(node.left, key);
+        } else if(node.compareTo(key) < 0) {
+            node.right = insert(node.right, key);
+        } else throw new IllegalArgumentException("Cannot insert duplicate keys :(");
+
+        updateHeight(node);
+        return root = balance(node, node.key);
+    }
+
+
+    //Problem occurs when deleting the root when theres no successors
+    @Override
+    public Node<Item> delete(Node<Item> node, Item key) {
+        if (isEmpty(search(node, key))) return null;
+
+        if (node.compareTo(key) > 0) {
+            System.out.println(node + "Node > key" + key);
+            node.left = delete(node.left, key);
+            System.out.println(node.left + "returned recursion" + node);
+        }
+        else if (node.compareTo(key) < 0) {
+            System.out.println("Node < key" + node);
+            node.right = delete(node.right, key);
+        }
+        else {
+            if (isEmpty(node.left) && isEmpty(node.right)) {
+                System.out.println(node + "No children");
+                node = null;
+                System.out.println(node + "No children");
+            }
+            else if (isEmpty(node.left))
+                node = node.right;
+            else if (isEmpty(node.right)) {
+                node = node.left;
+            }
+            else {
+                Node<Item> successor = findSmallest(node.right);
+                node.key = successor.key;
+                node.right = delete(node.right, successor.key);
+            }
+        }
+
+        if (node == null) {
+            System.out.println("NULLLL");
+            return null;
+        }
+
+        System.out.println(node + "REACHEDD");
+        System.out.println(this + "REACHEDD");
+
+        updateHeight(node);
+        Node b = balance(node, node.key);
+        System.out.println(this + "REACHEDD");
+        return b;
+    }
+
+    @Override
+    public Node<Item> search(Node<Item> node, Item key) {
+        if (isEmpty(node)) return null;
+
+        if (node.compareTo(key) > 0) return search(node.left, key);
+        else if (node.compareTo(key) < 0) return search(node.right, key);
+        else return node;
+
+    }
+
     private int height(Node<Item> node) {
-        return (node == null) ? -1 : node.height;
+        return (isEmpty(node)) ? -1 : node.height;
     }
 
     private int balanceFactor(Node<Item> node) {
-        return (node == null) ? 0 : (height(node.left) - height(node.right));
+        return (isEmpty(node)) ? 0 : (height(node.left) - height(node.right));
     }
 
     private void updateHeight(Node<Item> node) {
         node.height = 1 + Math.max(height(node.left), height(node.right));
     }
 
-    private boolean isEmpty() {
-        return root == null;
-    }
-
     private Node<Item> findSmallest(Node<Item> node) {
-        while (node.left != null) node = node.left;
+        while (!isEmpty(node.left)) node = node.left;
         return node;
     }
 
     private String preOrder(Node<Item> node, StringBuilder builder) {
-        if (node != null) {
+        if (!isEmpty(node)) {
             builder.append(node.key).append(" ");
             preOrder(node.left, builder);
             preOrder(node.right, builder);
@@ -56,7 +125,7 @@ public class AVLTree<Item> {
         return child;
     }
 
-    public Node<Item> balance(Node<Item> node, Item key) {
+    private Node<Item> balance(Node<Item> node, Item key) {
 
         int balance = balanceFactor(node);
 
@@ -69,61 +138,19 @@ public class AVLTree<Item> {
 
         //Right Heavy
         if (balance < -1) {
+            System.out.println(key + ", " + node.right.key + node.right.compareTo(key));
             if(node.right.compareTo(key) > 0)
                 node.right = rightRotate(node.right);
+            System.out.println(this + "balance function");
             return leftRotate(node);
         }
 
         return node;
     }
 
-    public Node<Item> insert(Node<Item> node, Item key) {
-        if (node == null) return root = new Node<>(key);
-
-        if (node.compareTo(key) > 0) {
-            node.left = insert(node.left, key);
-        } else if(node.compareTo(key) < 0) {
-            node.right = insert(node.right, key);
-        } else throw new IllegalArgumentException("Cannot insert duplicate keys :(");
-
-        updateHeight(node);
-        return root = balance(node, key);
-    }
-
-    public Node<Item> delete(Node<Item> node, Item key) {
-        if (node == null) return null;
-
-        if (node.compareTo(key) > 0)
-            node.left = delete(node.left, key);
-        else if (node.compareTo(key) < 0)
-            node.right = delete(node.right, key);
-        else {
-            if (node.left == null && node.right == null)
-                node = null;
-            else if (node.left == null)
-                node = node.right;
-            else if (node.right == null)
-                node = node.left;
-            else {
-                Node<Item> successor = findSmallest(node.right);
-                node.key = successor.key;
-                node.right = delete(node.right, successor.key);
-            }
-        }
-
-        if (node == null) return null;
-
-        updateHeight(node);
-        return balance(node, key);
-    }
-
-    public Node<Item> search(Node<Item> node, Item key) {
-        if (node == null) return null;
-
-        if (node.compareTo(key) > 0) return search(node.left, key);
-        else if (node.compareTo(key) < 0) return search(node.right, key);
-        else return node;
-
+    @Override
+    public boolean isEmpty() {
+        return this.root == null;
     }
 
     @Override
