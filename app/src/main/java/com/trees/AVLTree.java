@@ -9,20 +9,13 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
     public Node<Item> insert(Node<Item> node, Item key) {
         Node<Item> inserted = super.insert(node, key);
 
-        updateHeight(inserted);
         return root = balance(inserted, key);
     }
 
     @Override
     public Node<Item> delete(Node<Item> node, Item key) {
         Node<Item> deleted = super.delete(node, key);
-        if (deleted == null) {
-            //if node had no children, and it was the root (height of root = 0), set root = null
-            if(height(root) == 0) return root = null;
-            return null;
-        }
 
-        updateHeight(deleted);
         return root = balance(deleted, key);
     }
 

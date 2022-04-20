@@ -1,6 +1,6 @@
 package com.trees;
 
-public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
+public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
 
     public Node<Item> root;
 
@@ -13,11 +13,13 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
             node.right = insert(node.right, key);
         } else throw new IllegalArgumentException("Cannot insert duplicate keys :(");
 
-        return node;
+        updateHeight(node);
+        return root = node;
     }
 
     public Node<Item> delete(Node<Item> node, Item key) {
         if (isEmpty(node)) return null;
+
         if (node.compareTo(key) > 0)
             node.left = delete(node.left, key);
         else if (node.compareTo(key) < 0)
@@ -35,7 +37,9 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
                 node.right = delete(node.right, successor.key);
             }
         }
-        return node;
+
+        if(node != null) updateHeight(node);
+        return root = node;
     }
 
     public Node<Item> search(Node<Item> node, Item key) {
@@ -82,7 +86,9 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
         if (isEmpty()) builder.append("Tree is Empty :(");
         builder = new StringBuilder(preOrder(root, new StringBuilder()))
                 .insert(0, "[")
-                .append("] ");
+                .append("] ")
+                .append("[H=")
+                .append(height(root)).append("]");
 
         return builder.toString();
     }
