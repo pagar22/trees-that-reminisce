@@ -4,7 +4,6 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
 
     public Node<Item> root;
 
-    @Override
     public Node<Item> insert(Node<Item> node, Item key) {
         if (isEmpty(node)) return root = new Node<>(key);
 
@@ -17,10 +16,8 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
         return node;
     }
 
-    @Override
     public Node<Item> delete(Node<Item> node, Item key) {
-        if (isEmpty(search(node, key))) return null;
-
+        if (isEmpty(node)) return null;
         if (node.compareTo(key) > 0)
             node.left = delete(node.left, key);
         else if (node.compareTo(key) < 0)
@@ -30,9 +27,8 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
                 node = null;
             else if (isEmpty(node.left))
                 node = node.right;
-            else if (isEmpty(node.right)) {
+            else if (isEmpty(node.right))
                 node = node.left;
-            }
             else {
                 Node<Item> successor = findSmallest(node.right);
                 node.key = successor.key;
@@ -42,7 +38,6 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
         return node;
     }
 
-    @Override
     public Node<Item> search(Node<Item> node, Item key) {
         if (isEmpty(node)) return null;
 
@@ -51,12 +46,10 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
         else return node;
     }
 
-    @Override
     public boolean isEmpty() {
         return this.root == null;
     }
 
-    @Override
     public boolean isEmpty(Node<Item> node) {
         return node == null;
     }
@@ -85,8 +78,9 @@ public abstract class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> 
 
     @Override
     public String toString() {
-        if (isEmpty()) throw new NullPointerException("Tree is Empty :(");
-        StringBuilder builder = new StringBuilder(preOrder(root, new StringBuilder()))
+        StringBuilder builder = new StringBuilder();
+        if (isEmpty()) builder.append("Tree is Empty :(");
+        builder = new StringBuilder(preOrder(root, new StringBuilder()))
                 .insert(0, "[")
                 .append("] ");
 

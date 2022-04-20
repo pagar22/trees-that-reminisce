@@ -10,19 +10,20 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
         Node<Item> inserted = super.insert(node, key);
 
         updateHeight(inserted);
-        return root = balance(inserted, inserted.key);
+        return root = balance(inserted, key);
     }
 
-    //TODO case for deleting all nodes (if H(tree) == 0)
     @Override
     public Node<Item> delete(Node<Item> node, Item key) {
-
         Node<Item> deleted = super.delete(node, key);
-        if (deleted == null)
+        if (deleted == null) {
+            //if node had no children, and it was the root (height of root = 0), set root = null
+            if(height(root) == 0) return root = null;
             return null;
+        }
 
         updateHeight(deleted);
-        return root = balance(deleted, deleted.key);
+        return root = balance(deleted, key);
     }
 
     @Override
@@ -65,17 +66,23 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
 
         int balance = balanceFactor(node);
 
-        //Left Heavy
-        if (balance > 1) {
-            if (node.compareTo(node.left.key) > 0)
-                node.left = leftRotate(node.left);
+        //Left Left
+        if (balance > 1 && balanceFactor(node.left) >= 0)
+            return rightRotate(node);
+
+        // Left Right
+        if (balance > 1 && balanceFactor(node.left) < 0) {
+            node.left = leftRotate(node.left);
             return rightRotate(node);
         }
 
-        //Right Heavy
-        if (balance < -1) {
-            if(node.compareTo(node.right.key) < 0)
-                node.right = rightRotate(node.right);
+        // Right Right
+        if (balance < -1 && balanceFactor(node.right) <= 0)
+            return leftRotate(node);
+
+        // Right Left
+        if (balance < -1 && balanceFactor(node.right) > 0) {
+            node.right = rightRotate(node.right);
             return leftRotate(node);
         }
 
@@ -84,11 +91,13 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
 
     @Override
     public String toString() {
-
-        if (isEmpty()) throw new NullPointerException("Tree is Empty :(");
-        StringBuilder builder = new StringBuilder(super.preOrder(root, new StringBuilder()))
-                .insert(0, "[")
-                .append("] ").append("[").append("H=").append(height(root)).append(" B=").append(balanceFactor(root)).append("]");
+        StringBuilder builder = new StringBuilder();
+        if (isEmpty()) builder.append("Tree is Empty :(");
+        else {
+            builder = new StringBuilder(super.preOrder(root, new StringBuilder()))
+                    .insert(0, "[")
+                    .append("] ").append("[").append("H=").append(height(root)).append(" B=").append(balanceFactor(root)).append("]");
+        }
 
         return builder.toString();
     }

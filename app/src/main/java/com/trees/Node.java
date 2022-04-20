@@ -3,11 +3,10 @@ package com.trees;
 import javax.annotation.Nonnull;
 
 
-//NEED TO CHANGE ACCESS MODIFIERS
-public class Node<Item> implements Comparable<Item> {
+class Node<Item> implements Comparable<Item> {
     Item key;
     int height;
-    public Node<Item> left, right;
+    protected Node<Item> left, right;
 
     protected Node(Item key) {
         this.key = key;
