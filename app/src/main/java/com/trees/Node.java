@@ -2,10 +2,11 @@ package com.trees;
 
 import javax.annotation.Nonnull;
 
+
 class Node<Item> implements Comparable<Item> {
     Item key;
     int height;
-    Node<Item> left, right;
+    protected Node<Item> left, right;
 
     protected Node(Item key) {
         this.key = key;
