@@ -4,7 +4,7 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
 
     public Node<Item> root;
 
-    public Node<Item> insert(Node<Item> node, Item key) {
+    protected Node<Item> insert(Node<Item> node, Item key) {
         if (isEmpty(node)) return root = new Node<>(key);
 
         if (node.compareTo(key) > 0) {
@@ -17,7 +17,7 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
         return root = node;
     }
 
-    public Node<Item> delete(Node<Item> node, Item key) {
+    protected Node<Item> delete(Node<Item> node, Item key) {
         if (isEmpty(node)) return null;
 
         if (node.compareTo(key) > 0)
@@ -42,7 +42,7 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
         return root = node;
     }
 
-    public Node<Item> search(Node<Item> node, Item key) {
+    protected Node<Item> search(Node<Item> node, Item key) {
         if (isEmpty(node)) return null;
 
         if (node.compareTo(key) > 0) return search(node.left, key);
@@ -50,6 +50,24 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
         else return node;
     }
 
+    //Simplified non-recursive public methods
+    @Override
+    public void insert(Item key) {
+        insert(this.root, key);
+    }
+
+    @Override
+    public void delete(Item key) {
+        delete(this.root, key);
+    }
+
+    @Override
+    public Node<Item> search(Item key) {
+        return search(this.root, key);
+    }
+
+
+    //Auxiliary Functions
     public boolean isEmpty() {
         return this.root == null;
     }

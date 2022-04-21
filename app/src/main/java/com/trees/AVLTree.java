@@ -5,32 +5,34 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
 
     public Node<Item> root;
 
-    @Override
-    public Node<Item> insert(Node<Item> node, Item key) {
+    protected Node<Item> insert(Node<Item> node, Item key) {
         Node<Item> inserted = super.insert(node, key);
 
         return root = balance(inserted, key);
     }
 
-    @Override
-    public Node<Item> delete(Node<Item> node, Item key) {
+    protected Node<Item> delete(Node<Item> node, Item key) {
         Node<Item> deleted = super.delete(node, key);
 
         return root = balance(deleted, key);
     }
 
-    @Override
-    public Node<Item> search(Node<Item> node, Item key) {
+    protected Node<Item> search(Node<Item> node, Item key) {
         return super.search(node, key);
     }
 
+    //Simplified non-recursive public methods
     @Override
-    public boolean isEmpty() {
-        return this.root == null;
+    public void insert(Item key) {
+        insert(this.root, key);
     }
-
-    private int balanceFactor(Node<Item> node) {
-        return (isEmpty(node)) ? 0 : (height(node.left) - height(node.right));
+    @Override
+    public void delete(Item key) {
+        delete(this.root, key);
+    }
+    @Override
+    public Node<Item> search(Item key) {
+        return search(this.root, key);
     }
 
     //Left Rotate
@@ -81,6 +83,16 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
 
         return node;
     }
+
+    private int balanceFactor(Node<Item> node) {
+        return (isEmpty(node)) ? 0 : (height(node.left) - height(node.right));
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.root == null;
+    }
+
 
     @Override
     public String toString() {
