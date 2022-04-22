@@ -31,12 +31,14 @@ application {
     mainClass = 'com.app.Driver'
 }
 
-tasks.named('test') {
-    useTestNG()
+tasks.withType(Test) {
+    systemProperties = [
+            tag: System.getProperty('tag', '')
+    ]
 }
-
-tasks.register('hello') {
-    doLast {
-        println 'Hello!'
+task runTests(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        includeGroups System.getProperty('tag', 'NONE')
     }
 }
