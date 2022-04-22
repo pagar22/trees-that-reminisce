@@ -66,8 +66,7 @@ public class TreesTest {
     @Test(groups = {"binary_base", "search", "exists"}, priority = 4)
     public void BSTSearchExists() {
         int x = expected.get((int)(Math.random()*5));
-        Node<Integer> node = binaryTree.search(x);
-        assertEquals((int) node.key, x);
+        assertEquals((int) binaryTree.search(x).key, x);
     }
 
     @Test (groups = {"binary_base", "search", "not_exists"}, priority = 5)

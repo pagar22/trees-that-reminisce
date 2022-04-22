@@ -12,6 +12,8 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
     public Node<Item> root;
 
     protected Node<Item> insert(Node<Item> node, Item key) {
+        if (isEmpty(node)) return root = new Node<>(key);
+
         if (node.compareTo(key) > 0) {
             node.left = insert(node.left, key);
         } else if(node.compareTo(key) < 0) {
@@ -23,6 +25,8 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
     }
 
     protected Node<Item> delete(Node<Item> node, Item key) {
+        if (isEmpty(node)) return null;
+
         if (node.compareTo(key) > 0)
             node.left = delete(node.left, key);
         else if (node.compareTo(key) < 0)
