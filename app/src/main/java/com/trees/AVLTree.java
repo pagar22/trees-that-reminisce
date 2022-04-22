@@ -1,6 +1,14 @@
 package com.trees;
 
+import java.util.ArrayList;
 
+/**
+ * Self-balancing AVL Binary Search Tree. Can be implemented using types <code>Integer</code> and <code>String</code>.
+ * Default functions - <code>insert, delete, search</code>
+ * @param <Item> <code>Integer, String</code>
+ * @see BinaryTreeBase Binary Tree
+ * @see Node
+ */
 public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInterface<Item>{
 
     public Node<Item> root;
@@ -27,8 +35,8 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
         insert(this.root, key);
     }
     @Override
-    public void delete(Item key) {
-        delete(this.root, key);
+    public Node<Item> delete(Item key) {
+        return delete(this.root, key);
     }
     @Override
     public Node<Item> search(Item key) {
@@ -89,20 +97,23 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
     }
 
     @Override
+    public void clear() {
+        this.root = null;
+    }
+
+    @Override
     public boolean isEmpty() {
         return this.root == null;
     }
-
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         if (isEmpty()) builder.append("Tree is Empty :(");
-        else {
-            builder = new StringBuilder(super.preOrder(root, new StringBuilder()))
-                    .insert(0, "[")
-                    .append("] ").append("[").append("H=").append(height(root)).append(" B=").append(balanceFactor(root)).append("]");
-        }
+        else
+            builder = new StringBuilder(super.preOrder(root, new ArrayList<>()).toString())
+                    .append(" [").append("H=").append(height(root))
+                    .append(" B=").append(balanceFactor(root)).append("]");
 
         return builder.toString();
     }

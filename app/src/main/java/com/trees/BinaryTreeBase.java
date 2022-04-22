@@ -1,5 +1,12 @@
 package com.trees;
 
+import java.util.ArrayList;
+
+/**
+ * Traditional Binary Search Tree. Can be implemented using types <code>Integer</code> and <code>String</code>.
+ * Default functions - <code>insert, delete, search</code>
+ * @param <Item> <code>Integer, String</code>
+ */
 public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
 
     public Node<Item> root;
@@ -57,8 +64,8 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
     }
 
     @Override
-    public void delete(Item key) {
-        delete(this.root, key);
+    public Node<Item> delete(Item key) {
+        return delete(this.root, key);
     }
 
     @Override
@@ -66,8 +73,11 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
         return search(this.root, key);
     }
 
-
     //Auxiliary Functions
+    public void clear() {
+        this.root = null;
+    }
+
     public boolean isEmpty() {
         return this.root == null;
     }
@@ -76,13 +86,22 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
         return node == null;
     }
 
-    protected String preOrder(Node<Item> node, StringBuilder builder) {
+    public ArrayList<Item> preOrder(Node<Item> node, ArrayList<Item> arr) {
         if (!isEmpty(node)) {
-            builder.append(node.key).append(" ");
-            preOrder(node.left, builder);
-            preOrder(node.right, builder);
+            arr.add(node.key);
+            preOrder(node.left, arr);
+            preOrder(node.right, arr);
         }
-        return builder.toString().trim();
+        return arr;
+    }
+
+    public ArrayList<Item> inOrder(Node<Item> node, ArrayList<Item> arr) {
+        if (!isEmpty(node)) {
+            inOrder(node.left, arr);
+            arr.add(node.key);
+            inOrder(node.right, arr);
+        }
+        return arr;
     }
 
     protected Node<Item> findSmallest(Node<Item> node) {
@@ -102,11 +121,9 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         if (isEmpty()) builder.append("Tree is Empty :(");
-        builder = new StringBuilder(preOrder(root, new StringBuilder()))
-                .insert(0, "[")
-                .append("] ")
-                .append("[H=")
-                .append(height(root)).append("]");
+        else
+            builder = new StringBuilder(preOrder(root, new ArrayList<>()).toString())
+                    .append(" [H=").append(height(root)).append("]");
 
         return builder.toString();
     }
