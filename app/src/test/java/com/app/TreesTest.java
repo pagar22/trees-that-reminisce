@@ -1,5 +1,6 @@
 package com.app;
 
+import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
 import com.trees.Node;
 import org.testng.annotations.BeforeClass;
@@ -19,7 +20,7 @@ public class TreesTest {
     @BeforeClass(alwaysRun = true)
     void testSetup() {
         System.out.println("Test suite starting up...");
-        int i = 50;
+        int i = 1000;
         while(i != 0) {
             i--;
             int x = (int) (Math.random()*i*100);
@@ -36,6 +37,15 @@ public class TreesTest {
     @Test(groups = {"random", "binary_base", "insert"}, priority = 1)
     public void randomBSTInsert() {
         assertEquals(binaryTree.inOrder(binaryTree.root, new ArrayList<>()).toString(), expected.toString());
+    }
+
+    @Test(groups = {"binary_base", "insert"}, priority = 1)
+    public void randomBSTInsertDuplicate() {
+        try {
+            binaryTree.insert(expected.size()-1);
+        } catch (IllegalArgumentException illegalArgumentException) {
+            assertEquals(illegalArgumentException, new IllegalArgumentException("Cannot insert duplicate keys :("));
+        }
     }
 
     //Right Heavy Skewed Tree
@@ -66,13 +76,12 @@ public class TreesTest {
     @Test(groups = {"binary_base", "search", "exists"}, priority = 4)
     public void BSTSearchExists() {
         int x = expected.get((int)(Math.random()*5));
-        Node<Integer> node = binaryTree.search(x);
-        assertEquals((int) node.key, x);
+        assertEquals((int) binaryTree.search(x).key, x);
     }
 
     @Test (groups = {"binary_base", "search", "not_exists"}, priority = 5)
     public void BSTSearchDoesNotExist() {
-        assertNull(binaryTree.search(120)); //since max range for BST is 100 (Before Class)
+        assertNull(binaryTree.search(-1)); //since negative numbers aren't inserted
     }
 
     @Test(groups = {"binary_base", "delete", "exists"}, priority = 6)
@@ -86,9 +95,10 @@ public class TreesTest {
 
     /*@Test(groups = {"binary_base", "delete", "not_exists"}, priority = 7)
     public void BSTDeleteDoesNotExist() {
-        assertNull(binaryTree.delete(120)); //since max range for BST is 100
+        assertNull(binaryTree.delete(-1)); //since negative numbers aren't inserted
     }*/
 
+    //TODO optimize runtime
     @Test(groups = {"binary_base", "delete", "exists"}, priority = 8)
     public void BSTDeleteAll() {
         BinaryTreeBase<Integer> binaryTreeLocal = binaryTree;
