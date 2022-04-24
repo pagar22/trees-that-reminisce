@@ -4,7 +4,7 @@ import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
 
 
-public class Driver {
+public class TreeDriver {
 
     public static void main(String[] args) {
         AVLTree<String> tree = new AVLTree<>();
