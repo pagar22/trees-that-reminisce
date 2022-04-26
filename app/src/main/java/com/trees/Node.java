@@ -2,6 +2,8 @@ package com.trees;
 
 import javax.annotation.Nonnull;
 
+//TODO add getters and setters and change field access modifiers
+
 /**
  * Single tree object containing attributes <code>key, height, left, right</code>
  * @param <Item> <code>Integer, String</code>
@@ -35,8 +37,12 @@ public class Node<Item> implements Comparable<Item> {
      */
     @Override
     public int compareTo(@Nonnull Item o) {
-        if(key instanceof Integer) return (Integer) this.key - (Integer) o;
+        if (key instanceof Integer) return (Integer) this.key - (Integer) o;
         else if (key instanceof String) return this.key.toString().compareTo(o.toString());
-        else throw new IllegalArgumentException("AVLTree does not support this generic type");
+        else if (key instanceof KeyValuePair) {
+            return ((KeyValuePair<?, ?>) this.key).compareTo(((KeyValuePair<?, ?>) o).value);
+        }
+        else throw new TypeNotPresentException(key.getClass().getTypeName(),
+                new Exception("BinaryTree does not support this generic type :("));
     }
 }

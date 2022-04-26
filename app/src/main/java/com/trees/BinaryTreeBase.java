@@ -63,6 +63,8 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
         insert(this.root, key);
     }
 
+    //TODO could create polymorphic insert to simplify insert call, but increase class coupling
+
     @Override
     public Node<Item> delete(Item key) {
         return delete(this.root, key);
