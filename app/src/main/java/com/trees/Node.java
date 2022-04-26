@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Single tree object containing attributes <code>key, height, left, right</code>
- * @param <Item> <code>Integer, String</code>
+ * @param <Item> <code>Integer, String, KVP</code>
  */
 public class Node<Item> implements Comparable<Item> {
     public Item key;
@@ -33,7 +33,7 @@ public class Node<Item> implements Comparable<Item> {
      * Compares the values of two <code>Node</code> objects.
      * Only supports <code>Integer</code> and <code>String</code> types.
      * @return int
-     * @throws IllegalArgumentException if type is anything other than <code>Integer</code> or <code>String</code>
+     * @throws IllegalArgumentException if type is anything other than <code>Integer, String or KVP</code>
      */
     @Override
     public int compareTo(@Nonnull Item o) {
