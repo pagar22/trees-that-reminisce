@@ -1,19 +1,24 @@
 package com.implementations;
 
+import com.trees.AVLTree;
+import com.trees.BinaryTreeBase;
+import com.trees.KeyValuePair;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ChangeGiver {
 
 
-    public int minCoins (ArrayList<Integer> denoms, int amount, int[] memo) {
+    public int minCoins (ArrayList<Integer> denoms, int amount, BinaryTreeBase<KeyValuePair<Integer, Integer>> memo) {
         int minValue = amount;
 
         if (denoms.contains(amount)) {
-            memo[amount] = 1;
+            memo.insert(new KeyValuePair<>(1, amount));
+            //memo[amount] = 1;
             return 1;
         }
-        if (memo[amount] > 0) return memo[amount];
+        if ((memo.search(new KeyValuePair<>(amount)) != null))
+            return (memo.search(new KeyValuePair<>(amount))).key.value;
 
         for(int i : denoms) {
             int numValue = Integer.MAX_VALUE;
@@ -21,7 +26,8 @@ public class ChangeGiver {
                 numValue = 1 + minCoins(denoms, amount-i, memo);
             if (numValue < minValue) {
                 minValue = numValue;
-                memo[amount] = minValue;
+                memo.insert(new KeyValuePair<>(minValue, amount));
+                //memo[amount] = minValue;
             }
         }
 
@@ -36,10 +42,10 @@ public class ChangeGiver {
         denoms.add(5);
         int amount = 8;
 
-        int[] memo = new int[amount+1];
-        Arrays.fill(memo, 0);
+        /*int[] memo = new int[amount+1];
+        Arrays.fill(memo, 0);*/
 
-        //BinaryTreeBase<>
+        AVLTree<KeyValuePair<Integer, Integer>> memo = new AVLTree<>();
 
         ChangeGiver change = new ChangeGiver();
         System.out.println(change.minCoins(denoms, amount, memo));
