@@ -6,7 +6,7 @@ plugins {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.app.Driver'
+        attributes 'Main-Class': 'com.app.TreeDriver'
     }
 }
 
@@ -24,11 +24,12 @@ repositories {
 
 dependencies {
     testImplementation 'org.testng:testng:7.4.0'
+    testImplementation "org.mockito:mockito-core:3.+"
     implementation 'com.google.guava:guava:30.1.1-jre'
 }
 
 application {
-    mainClass = 'com.app.Driver'
+    mainClass = 'com.app.TreeDriver'
 }
 
 tasks.withType(Test) {
@@ -36,7 +37,7 @@ tasks.withType(Test) {
             tag: System.getProperty('tag', '')
     ]
 }
-task runTests(type: Test) {
+task runTest(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         includeGroups System.getProperty('tag', 'NONE')
