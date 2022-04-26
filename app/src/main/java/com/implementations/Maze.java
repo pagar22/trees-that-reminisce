@@ -4,18 +4,31 @@ import com.trees.BinaryTreeBase;
 
 public class Maze {
 
-    char[][] maze = {
-                    {'x','x','x','x','x',},
-                    {'x',' ','x',' ','x',},
-                    {'x',' ',' ',' ','x',},
-                    {'x',' ','x',' ','x',},
-                    {'x','x','x','x','x',},
-                    };
+    private final char[][] maze;
+    private final int rows;
+    private final int cols;
+    private final BinaryTreeBase<String> visited;
 
-    int rows = maze.length;
-    int cols = maze[0].length;
 
-    BinaryTreeBase<String> visited = new BinaryTreeBase<>();
+    public Maze() {
+        this.maze = new char[][]{
+                {'x', 'x', 'x', 'x', 'x',},
+                {'x', ' ', 'x', ' ', 'x',},
+                {'x', ' ', ' ', ' ', 'x',},
+                {'x', ' ', 'x', ' ', 'x',},
+                {'x', 'x', 'x', ' ', 'x',},
+        };
+        this.rows =  maze.length - 1;
+        this.cols = maze[0].length - 1;
+        this.visited = new BinaryTreeBase<>();
+    }
+
+    public Maze( char[][] maze, BinaryTreeBase<String> visited) {
+        this.maze = maze;
+        this.rows =  maze.length - 1;
+        this.cols = maze[0].length - 1;
+        this.visited = visited;
+    }
 
     public boolean escape(int row, int col) {
         //if exited the maze, return true
