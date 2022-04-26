@@ -31,8 +31,8 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
 
     //Simplified non-recursive public methods
     @Override
-    public void insert(Item key) {
-        insert(this.root, key);
+    public Node<Item> insert(Item key) {
+        return insert(this.root, key);
     }
     @Override
     public Node<Item> delete(Item key) {

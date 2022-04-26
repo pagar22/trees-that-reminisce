@@ -6,9 +6,9 @@ interface BinaryTreeInterface<Item> {
      * Inserts a unique value into a specified <code>BinaryTree</code>.
      * Duplicate values aren't supported.
      * @param key Value to be inserted
-     * @throws IllegalArgumentException for duplicate values
+     * @return Root node after insertion, null if value was duplicate
      */
-    void insert(Item key);
+    Node<Item> insert(Item key);
 
     /**
      * Deletes the input value, if it exists, from a <code>BinaryTree</code>.

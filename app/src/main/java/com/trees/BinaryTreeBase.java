@@ -18,7 +18,7 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
             node.left = insert(node.left, key);
         } else if(node.compareTo(key) < 0) {
             node.right = insert(node.right, key);
-        } else throw new IllegalArgumentException("Cannot insert duplicate keys :(");
+        } else return null;
 
         updateHeight(node);
         return root = node;
@@ -59,8 +59,8 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
 
     //Simplified non-recursive public methods
     @Override
-    public void insert(Item key) {
-        insert(this.root, key);
+    public Node<Item> insert(Item key) {
+        return insert(this.root, key);
     }
 
     //TODO could create polymorphic insert to simplify insert call, but increase class coupling
