@@ -2,6 +2,7 @@ package com.app;
 
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -17,7 +18,7 @@ public class TreeTests {
     private final ArrayList<Integer> expected = new ArrayList<>();
     private final BinaryTreeBase<Integer> actualTree = new AVLTree<>();
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass (alwaysRun = true)
     void testSetup() {
         System.out.println("Test suite starting up...");
         int i = 100;
@@ -105,6 +106,13 @@ public class TreeTests {
         for (Integer key : expected)
             binaryTreeLocal.delete(key);
         assertEquals(binaryTreeLocal.inOrder(binaryTreeLocal.root, new ArrayList<>()).toString(), "[]");
+    }
+
+    @AfterClass (alwaysRun = true)
+    void testTeardown() {
+        System.out.println("Test suite tearing down...");
+        expected.clear();
+        actualTree.clear();
     }
 
 }
