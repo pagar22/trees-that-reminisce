@@ -14,14 +14,12 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
     public Node<Item> root;
 
     protected Node<Item> insert(Node<Item> node, Item key) {
-        if (isEmpty(node)) return root = new Node<>(key);
         Node<Item> inserted = super.insert(node, key);
 
         return root = balance(inserted, key);
     }
 
     protected Node<Item> delete(Node<Item> node, Item key) {
-        if (isEmpty(node)) return null;
         Node<Item> deleted = super.delete(node, key);
 
         return root = balance(deleted, key);
