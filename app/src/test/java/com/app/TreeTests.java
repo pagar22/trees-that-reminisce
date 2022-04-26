@@ -2,31 +2,32 @@ package com.app;
 
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
-import com.trees.Node;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static org.mockito.Mockito.mock;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
-public class TreesTest {
+public class TreeTests {
 
     private final ArrayList<Integer> expected = new ArrayList<>();
-    private final BinaryTreeBase<Integer> binaryTree = new BinaryTreeBase<>();
+    private final BinaryTreeBase<Integer> actualTree = new AVLTree<>();
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass (alwaysRun = true)
     void testSetup() {
         System.out.println("Test suite starting up...");
-        int i = 1000;
-        while(i != 0) {
+        int i = 100;
+        while (i != 0) {
             i--;
             int x = (int) (Math.random()*i*100);
             if (!expected.contains(x)){
                 expected.add(x);
-                binaryTree.insert(x);
+                actualTree.insert(x);
             }
             else i++;
         }
@@ -34,63 +35,63 @@ public class TreesTest {
         System.out.println("Randomized Sorted Array Generated: " + expected);
     }
 
-    @Test(groups = {"random", "binary_base", "insert"}, priority = 1)
+    @Test(groups = {"tree", "random", "insert"}, priority = 1)
     public void randomBSTInsert() {
-        assertEquals(binaryTree.inOrder(binaryTree.root, new ArrayList<>()).toString(), expected.toString());
+        assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expected.toString());
     }
 
-    @Test(groups = {"binary_base", "insert"}, priority = 1)
+    @Test(groups = {"tree", "insert"}, priority = 1)
     public void randomBSTInsertDuplicate() {
         try {
-            binaryTree.insert(expected.size()-1);
+            actualTree.insert(expected.size()-1);
         } catch (IllegalArgumentException illegalArgumentException) {
             assertEquals(illegalArgumentException, new IllegalArgumentException("Cannot insert duplicate keys :("));
         }
     }
 
     //Right Heavy Skewed Tree
-    @Test(groups = {"skewed", "binary_base", "insert"}, priority = 2)
+    @Test(groups = {"tree", "skewed", "insert"}, priority = 2)
     public void skewedRHBSTInsert() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
-        binaryTree.clear();
+        actualTree.clear();
         expectedLocal.sort(null); //sort in ascending order to make right heavy tree
         for (int x : expectedLocal)
-            binaryTree.insert(x);
+            actualTree.insert(x);
 
-        assertEquals(binaryTree.inOrder(binaryTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
+        assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
     }
 
     //Left Heavy Skewed Tree
-    @Test(groups = {"skewed", "binary_base", "insert"}, priority = 3)
+    @Test(groups = {"tree", "skewed", "insert"}, priority = 3)
     public void skewedLHBSTInsert() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
-        binaryTree.clear();
+        actualTree.clear();
         expectedLocal.sort(Collections.reverseOrder()); //sort in descending order to make left heavy tree
         for (int x : expectedLocal)
-            binaryTree.insert(x);
+            actualTree.insert(x);
         expectedLocal.sort(null); //sort back to compare with inorder traversal
 
-        assertEquals(binaryTree.inOrder(binaryTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
+        assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
     }
 
-    @Test(groups = {"binary_base", "search", "exists"}, priority = 4)
+    @Test(groups = {"tree", "search", "exists"}, priority = 4)
     public void BSTSearchExists() {
         int x = expected.get((int)(Math.random()*5));
-        assertEquals((int) binaryTree.search(x).key, x);
+        assertEquals((int) actualTree.search(x).key, x);
     }
 
-    @Test (groups = {"binary_base", "search", "not_exists"}, priority = 5)
+    @Test (groups = {"tree", "search", "not_exists"}, priority = 5)
     public void BSTSearchDoesNotExist() {
-        assertNull(binaryTree.search(-1)); //since negative numbers aren't inserted
+        assertNull(actualTree.search(-1)); //since negative numbers aren't inserted
     }
 
-    @Test(groups = {"binary_base", "delete", "exists"}, priority = 6)
+    @Test(groups = {"tree", "delete", "exists"}, priority = 6)
     public void BSTDeleteExists() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
         int x = expectedLocal.get((int)(Math.random()*5));
         expectedLocal.remove((Object) x);
-        binaryTree.delete(x);
-        assertEquals(binaryTree.inOrder(binaryTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
+        actualTree.delete(x);
+        assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
     }
 
     /*@Test(groups = {"binary_base", "delete", "not_exists"}, priority = 7)
@@ -99,12 +100,19 @@ public class TreesTest {
     }*/
 
     //TODO optimize runtime
-    @Test(groups = {"binary_base", "delete", "exists"}, priority = 8)
+    @Test(groups = {"tree", "delete", "exists"}, priority = 8)
     public void BSTDeleteAll() {
-        BinaryTreeBase<Integer> binaryTreeLocal = binaryTree;
+        BinaryTreeBase<Integer> binaryTreeLocal = actualTree;
         for (Integer key : expected)
             binaryTreeLocal.delete(key);
         assertEquals(binaryTreeLocal.inOrder(binaryTreeLocal.root, new ArrayList<>()).toString(), "[]");
+    }
+
+    @AfterClass (alwaysRun = true)
+    void testTeardown() {
+        System.out.println("Test suite tearing down...");
+        expected.clear();
+        actualTree.clear();
     }
 
 }
