@@ -9,20 +9,20 @@ import java.util.ArrayList;
  * @see BinaryTreeBase Binary Tree
  * @see Node
  */
-public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInterface<Item>{
+public class AVLTree<Item> extends BinaryTreeBase<Item>{
 
     public Node<Item> root;
 
     protected Node<Item> insert(Node<Item> node, Item key) {
         Node<Item> inserted = super.insert(node, key);
 
-        return root = balance(inserted, key);
+        return root = balance(inserted);
     }
 
     protected Node<Item> delete(Node<Item> node, Item key) {
         Node<Item> deleted = super.delete(node, key);
 
-        return root = balance(deleted, key);
+        return root = balance(deleted);
     }
 
     protected Node<Item> search(Node<Item> node, Item key) {
@@ -65,7 +65,7 @@ public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInt
         return child;
     }
 
-    private Node<Item> balance(Node<Item> node, Item key) {
+    private Node<Item> balance(Node<Item> node) {
 
         int balance = balanceFactor(node);
 

@@ -76,14 +76,17 @@ public class BinaryTreeBase<Item> implements BinaryTreeInterface<Item> {
     }
 
     //Auxiliary Functions
+    @Override
     public void clear() {
         this.root = null;
     }
 
+    @Override
     public boolean isEmpty() {
         return this.root == null;
     }
 
+    @Override
     public boolean isEmpty(Node<Item> node) {
         return node == null;
     }
