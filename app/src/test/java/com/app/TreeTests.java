@@ -20,7 +20,7 @@ public class TreeTests {
 
     @BeforeClass (alwaysRun = true)
     void testSetup() {
-        System.out.println("Test suite starting up...");
+        System.out.println("Tree Test Suite Starting Up...");
         int i = 100;
         while (i != 0) {
             i--;

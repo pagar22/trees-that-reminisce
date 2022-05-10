@@ -4,7 +4,7 @@
     <inspection_tool class="groupsTestNG" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="groups">
         <value>
-          <list size="9">
+          <list size="11">
             <item index="0" class="java.lang.String" itemvalue="tree" />
             <item index="1" class="java.lang.String" itemvalue="exists" />
             <item index="2" class="java.lang.String" itemvalue="search" />
@@ -14,6 +14,8 @@
             <item index="6" class="java.lang.String" itemvalue="delete" />
             <item index="7" class="java.lang.String" itemvalue="not_exists" />
             <item index="8" class="java.lang.String" itemvalue="maze" />
+            <item index="9" class="java.lang.String" itemvalue="change_giver" />
+            <item index="10" class="java.lang.String" itemvalue="implementation" />
           </list>
         </value>
       </option>
