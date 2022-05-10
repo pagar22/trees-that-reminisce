@@ -1,29 +1,16 @@
 package com.implementations;
 
 import com.trees.BinaryTreeBase;
+import com.trees.BinaryTreeInterface;
 
 public class Maze {
 
     private final char[][] maze;
     private final int rows;
     private final int cols;
-    private final BinaryTreeBase<String> visited;
+    private final BinaryTreeInterface<String> visited;
 
-
-    public Maze() {
-        this.maze = new char[][]{
-                {'x', 'x', 'x', 'x', 'x',},
-                {'x', ' ', 'x', ' ', 'x',},
-                {'x', ' ', ' ', ' ', 'x',},
-                {'x', ' ', 'x', ' ', 'x',},
-                {'x', 'x', 'x', ' ', 'x',},
-        };
-        this.rows =  maze.length - 1;
-        this.cols = maze[0].length - 1;
-        this.visited = new BinaryTreeBase<>();
-    }
-
-    public Maze( char[][] maze, BinaryTreeBase<String> visited) {
+    public Maze( char[][] maze, BinaryTreeInterface<String> visited) {
         this.maze = maze;
         this.rows =  maze.length - 1;
         this.cols = maze[0].length - 1;

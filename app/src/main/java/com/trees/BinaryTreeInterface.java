@@ -1,6 +1,6 @@
 package com.trees;
 
-interface BinaryTreeInterface<Item> {
+public interface BinaryTreeInterface<Item> {
 
     /**
      * Inserts a unique value into a specified <code>BinaryTree</code>.

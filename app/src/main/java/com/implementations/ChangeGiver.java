@@ -1,14 +1,16 @@
 package com.implementations;
 
-import com.trees.AVLTree;
-import com.trees.BinaryTreeBase;
-import com.trees.KeyValuePair;
-import com.trees.Node;
+import com.trees.*;
 
 public class ChangeGiver {
 
+    private final BinaryTreeInterface<KeyValuePair<Integer, Integer>> calculated;
 
-    public int pettyChange(int[] denoms, int amount, BinaryTreeBase<KeyValuePair<Integer, Integer>> calculated) {
+    public ChangeGiver(BinaryTreeInterface<KeyValuePair<Integer, Integer>> calculated) {
+        this.calculated = calculated;
+    }
+
+    public int pettyChange(int[] denoms, int amount) {
         int minCoins = amount;
 
         //If there is a deno equal to amount, return 1 (only 1 deno needed)
@@ -25,7 +27,7 @@ public class ChangeGiver {
         for(int i : denoms) {
             int numCoins = Integer.MAX_VALUE;
             if(i < amount)
-                numCoins = 1 + pettyChange(denoms, amount-i, calculated);
+                numCoins = 1 + pettyChange(denoms, amount-i);
             if (numCoins < minCoins) {
                 minCoins = numCoins;
                 calculated.insert(new KeyValuePair<>(minCoins, amount));

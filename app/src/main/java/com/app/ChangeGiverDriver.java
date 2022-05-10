@@ -1,6 +1,7 @@
 package com.app;
 
 import com.implementations.ChangeGiver;
+import com.injectors.ChangeGiverInjector;
 import com.trees.AVLTree;
 import com.trees.KeyValuePair;
 
@@ -12,10 +13,8 @@ public class ChangeGiverDriver {
         int[] denoms = {1, 2, 5, 10, 20, 50};
         int amount = 67;
 
-        AVLTree<KeyValuePair<Integer, Integer>> memo = new AVLTree<>();
-
-        ChangeGiver change = new ChangeGiver();
-        System.out.println(change.pettyChange(denoms, amount, memo));
-
+        ChangeGiverInjector changeGiverInjector = new ChangeGiverInjector();
+        ChangeGiver changeGiver = changeGiverInjector.getChangeGiverAVL();
+        System.out.println(changeGiver.pettyChange(denoms, amount));
     }
 }
