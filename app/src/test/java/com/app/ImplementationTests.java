@@ -8,55 +8,57 @@ import com.implementations.Maze;
 import com.injectors.BinaryTreeInjector;
 import com.injectors.ChangeGiverInjector;
 import com.injectors.MazeInjector;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
 public class ImplementationTests {
 
-    private BinaryTreeInjector treeInjector;
+    private BinaryTreeInjector mazeInjector;
+    private BinaryTreeInjector changeGiverInjector;
 
     @BeforeClass(alwaysRun = true)
     void testSetup() {
         System.out.println("Implementation Suite Starting Up...");
-
+        mazeInjector = new MazeInjector();
+        changeGiverInjector = new ChangeGiverInjector();
     }
 
-    //reset the injector after every use
-    @AfterMethod(alwaysRun = true)
-    void resetInjector() {
-        treeInjector = null;
+    @Test(groups = {"implementation", "maze", "base"})
+    public void mazeMockTestBaseTree() {
+        assertTrue(executeMaze((Maze) mazeInjector.getBaseTreeInstance()));
     }
 
-    @BeforeGroups("maze")
-    char[][] initMaze() {
-        return new char[][]{
+    @Test(groups = {"implementation", "maze", "avl"})
+    public void mazeMockTestAVLTree() {
+        assertTrue(executeMaze((Maze) mazeInjector.getAVLTreeInstance()));
+    }
+
+    @Test(groups = {"implementation", "change_giver", "base"})
+    public void changeGiverMockTestBaseTree() {
+        assertEquals(executeChangeGiver((ChangeGiver) changeGiverInjector.getAVLTreeInstance()), 4);
+    }
+
+    @Test(groups = {"implementation", "change_giver", "avl"})
+    public void changeGiverMockTestAVLTree() {
+        assertEquals(executeChangeGiver((ChangeGiver) changeGiverInjector.getAVLTreeInstance()), 4);
+    }
+
+    private boolean executeMaze(Maze maze) {
+        maze.setMaze(new char[][]{
                 {'x', 'x', 'x', 'x', 'x',},
                 {'x', ' ', 'x', ' ', 'x',},
                 {'x', ' ', ' ', ' ', 'x',},
                 {'x', ' ', 'x', ' ', 'x',},
                 {'x', 'x', 'x', ' ', 'x',},
-        };
+        });
+        return maze.escape(1, 1);
     }
 
-    @Test(groups = {"implementation", "maze"})
-    public void mazeMockTestBaseTree() {
-        treeInjector = new MazeInjector();
-        Maze mazeBase = (Maze) treeInjector.getBaseTreeInstance();
-        mazeBase.setMaze(initMaze());
-        assertTrue(mazeBase.escape(1, 1));
-    }
-
-    @Test(groups = {"implementation", "change_giver"})
-    public void changeGiverMockTest() {
-        treeInjector = new ChangeGiverInjector();
-        ChangeGiver changeGiver = (ChangeGiver) treeInjector.getAVLTreeInstance();
-        ChangeGiver changeGiverBase = (ChangeGiver) treeInjector.getBaseTreeInstance();
+    private int executeChangeGiver(ChangeGiver changeGiver) {
         int[] denoms = {1, 2, 5, 10, 20, 50};
         int amount = 67;
-        assertEquals(changeGiver.pettyChange(denoms, amount), 4);
-        assertEquals(changeGiverBase.pettyChange(denoms, amount), 4);
+        return changeGiver.pettyChange(denoms, amount);
     }
+
 
 }
