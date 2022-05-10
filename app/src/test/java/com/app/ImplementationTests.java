@@ -1,6 +1,7 @@
 package com.app;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
 import com.implementations.ChangeGiver;
@@ -8,23 +9,31 @@ import com.implementations.Maze;
 import com.injectors.BinaryTreeInjector;
 import com.injectors.ChangeGiverInjector;
 import com.injectors.MazeInjector;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class ImplementationTests {
 
-    private BinaryTreeInjector mazeInjector;
-    private BinaryTreeInjector changeGiverInjector;
+    @InjectMocks BinaryTreeInjector mazeInjector;
+    @InjectMocks BinaryTreeInjector changeGiverInjector;
 
     @BeforeClass(alwaysRun = true)
     void testSetup() {
         System.out.println("Implementation Suite Starting Up...");
         mazeInjector = new MazeInjector();
         changeGiverInjector = new ChangeGiverInjector();
+        MockitoAnnotations.openMocks(this);
     }
+
+    //TODO attributes (depends on, etc.)
 
     @Test(groups = {"implementation", "maze", "base"})
     public void mazeMockTestBaseTree() {
+        //when(((Maze) mazeInjector.getBaseTreeInstance()).)
         assertTrue(executeMaze((Maze) mazeInjector.getBaseTreeInstance()));
     }
 
