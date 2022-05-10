@@ -7,15 +7,17 @@ public class MazeDriver {
 
     public static void main(String[] args) {
         MazeInjector mazeInjector = new MazeInjector();
-        Maze maze = mazeInjector.getAVL();
-        maze.setMaze(new char[][]{
+        Maze mazeAVL = mazeInjector.getAVLTreeInstance();
+
+        mazeAVL.setMaze(new char[][]{
                 {'x', 'x', 'x', 'x', 'x',},
                 {'x', ' ', 'x', ' ', 'x',},
                 {'x', ' ', ' ', ' ', 'x',},
                 {'x', ' ', 'x', ' ', 'x',},
                 {'x', 'x', 'x', ' ', 'x',},
         });
+        System.out.println(mazeAVL.escape(1,1));
 
-        System.out.println(maze.escape(1,1));
+
     }
 }

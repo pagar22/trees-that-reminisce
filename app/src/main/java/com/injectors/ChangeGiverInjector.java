@@ -3,15 +3,16 @@ package com.injectors;
 import com.implementations.ChangeGiver;
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
-import org.checkerframework.checker.units.qual.C;
 
-public class ChangeGiverInjector {
+public class ChangeGiverInjector implements BinaryTreeInjector{
 
-    public ChangeGiver getChangeGiverBase() {
+    @Override
+    public ChangeGiver getBaseTreeInstance() {
         return new ChangeGiver(new BinaryTreeBase<>());
     }
 
-    public ChangeGiver getChangeGiverAVL() {
+    @Override
+    public ChangeGiver getAVLTreeInstance() {
         return new ChangeGiver(new AVLTree<>());
     }
 

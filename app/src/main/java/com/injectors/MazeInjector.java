@@ -6,11 +6,13 @@ import com.trees.BinaryTreeBase;
 
 public class MazeInjector implements BinaryTreeInjector {
 
-    public Maze getBase() {
+    @Override
+    public Maze getBaseTreeInstance() {
         return new Maze(new BinaryTreeBase<>());
     }
 
-    public Maze getAVL() {
+    @Override
+    public Maze getAVLTreeInstance() {
         return new Maze(new AVLTree<>());
     }
 }

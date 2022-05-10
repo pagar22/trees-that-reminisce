@@ -2,7 +2,7 @@ package com.implementations;
 
 import com.trees.*;
 
-public class ChangeGiver {
+public class ChangeGiver implements Application{
 
     private final BinaryTreeInterface<KeyValuePair<Integer, Integer>> calculated;
 
