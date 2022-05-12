@@ -18,14 +18,15 @@ import org.testng.annotations.Test;
 
 public class ImplementationTests {
 
-    @InjectMocks BinaryTreeInjector mazeInjector;
-    @InjectMocks BinaryTreeInjector changeGiverInjector;
+    @InjectMocks BinaryTreeInjector mazeInjector = new MazeInjector();
+    @InjectMocks BinaryTreeInjector changeGiverInjector = new ChangeGiverInjector();
+    @Mock Maze maze = (Maze) mazeInjector.getBaseTreeInstance();
 
     @BeforeClass(alwaysRun = true)
     void testSetup() {
         System.out.println("Implementation Suite Starting Up...");
-        mazeInjector = new MazeInjector();
-        changeGiverInjector = new ChangeGiverInjector();
+        //mazeInjector = new MazeInjector();
+        //changeGiverInjector = new ChangeGiverInjector();
         MockitoAnnotations.openMocks(this);
     }
 
@@ -33,8 +34,8 @@ public class ImplementationTests {
 
     @Test(groups = {"implementation", "maze", "base"})
     public void mazeMockTestBaseTree() {
-        //when(((Maze) mazeInjector.getBaseTreeInstance()).)
-        assertTrue(executeMaze((Maze) mazeInjector.getBaseTreeInstance()));
+        //when(maze.escape(1, 1)).thenReturn(true);
+        assertTrue(maze.escape(1, 1));
     }
 
     @Test(groups = {"implementation", "maze", "avl"})
