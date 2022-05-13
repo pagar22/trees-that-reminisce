@@ -2,6 +2,7 @@ package com.app;
 
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
+import com.trees.Node;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -9,7 +10,9 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
@@ -21,6 +24,7 @@ public class TreeTests {
     @BeforeClass (alwaysRun = true)
     void testSetup() {
         System.out.println("Tree Test Suite Starting Up...");
+        //BinaryTreeBase<Integer> binaryTreeBase = mock(BinaryTreeBase.class);
         int i = 100;
         while (i != 0) {
             i--;
@@ -28,6 +32,9 @@ public class TreeTests {
             if (!expected.contains(x)){
                 expected.add(x);
                 actualTree.insert(x);
+                /*when(binaryTreeBase.insert(anyInt())).thenReturn(binaryTreeBase.root);
+                Node<Integer> node = binaryTreeBase.insert(x);
+                assertEquals(node, binaryTreeBase.root);*/
             }
             else i++;
         }

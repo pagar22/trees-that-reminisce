@@ -1,5 +1,6 @@
 package com.app;
 
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
 import com.implementations.ChangeGiver;
@@ -14,8 +15,8 @@ import org.testng.annotations.Test;
 
 public class ImplementationTests {
 
-    @InjectMocks BinaryTreeInjector mazeInjector = new MazeInjector();
-    @InjectMocks BinaryTreeInjector changeGiverInjector = new ChangeGiverInjector();
+    @InjectMocks private final BinaryTreeInjector mazeInjector = new MazeInjector();
+    @InjectMocks private final BinaryTreeInjector changeGiverInjector = new ChangeGiverInjector();
 
     @BeforeClass(alwaysRun = true)
     void testSetup() {
