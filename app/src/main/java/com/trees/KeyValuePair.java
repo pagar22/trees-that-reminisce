@@ -14,11 +14,6 @@ public class KeyValuePair<K, V> implements Comparable<V>{
         this.value = value;
     }
 
-    public KeyValuePair(V value) {
-        this.key = null;
-        this.value = value;
-    }
-
     @Override
     public String toString() {
         return key == null? value.toString() : key + ": " + value.toString();

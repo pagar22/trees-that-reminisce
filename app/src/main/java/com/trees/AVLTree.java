@@ -31,12 +31,12 @@ public class AVLTree<Item> extends BinaryTreeBase<Item>{
 
     //Simplified non-recursive public methods
     @Override
-    public Node<Item> insert(Item key) {
-        return insert(this.root, key);
+    public void insert(Item key) {
+        insert(this.root, key);
     }
     @Override
-    public Node<Item> delete(Item key) {
-        return delete(this.root, key);
+    public void delete(Item key) {
+        delete(this.root, key);
     }
     @Override
     public Node<Item> search(Item key) {
@@ -93,7 +93,7 @@ public class AVLTree<Item> extends BinaryTreeBase<Item>{
     }
 
     private int balanceFactor(Node<Item> node) {
-        return (isEmpty(node)) ? 0 : (height(node.left) - height(node.right));
+        return (node == null) ? 0 : (height(node.left) - height(node.right));
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ChangeGiver implements Application{
         }
 
         //If value is already calculated for this amount, don't calculate again
-        Node<KeyValuePair<Integer, Integer>> memo = calculated.search(new KeyValuePair<>(amount));
+        Node<KeyValuePair<Integer, Integer>> memo = calculated.search(new KeyValuePair<>(null, amount));
         if (memo != null) return memo.key.key;
 
         //Else go through all the denoms and find and store min required values recursively

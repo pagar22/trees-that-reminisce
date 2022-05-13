@@ -66,6 +66,7 @@ public class ImplementationTests {
 
     @AfterClass
     void testTeardown(){
+        System.out.println("Implementation Test Suite Tearing Down...");
         mazeInjector = null;
         changeGiverInjector = null;
     }

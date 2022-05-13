@@ -16,7 +16,7 @@ public class Maze implements Application{
     }
 
     public boolean escape(int row, int col) {
-        if (maze == null) throw new IllegalStateException("Maze must be instantiated first :(");
+        if (maze == null || rows == 0 || cols == 0) throw new IllegalStateException("Maze must be instantiated first :(");
         //if exited the maze, return true
         if (row > rows || col > cols || row < 0 || col < 0) return true;
 
@@ -34,6 +34,10 @@ public class Maze implements Application{
         this.maze = maze;
         this.rows =  maze.length - 1;
         this.cols = maze[0].length - 1;
+    }
+
+    public char[][] getMaze() {
+        return this.maze;
     }
 
     private String parse(int row, int col) {
