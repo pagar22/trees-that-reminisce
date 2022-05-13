@@ -3,7 +3,7 @@ import com.trees.BinaryTreeInterface;
 
 public class Maze implements Application{
 
-    public char[][] maze;
+    private char[][] maze;
     private int rows;
     private int cols;
     private final BinaryTreeInterface<String> visited;
