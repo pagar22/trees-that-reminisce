@@ -1,6 +1,5 @@
 package com.app;
 
-import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
 import com.implementations.ChangeGiver;
@@ -10,13 +9,14 @@ import com.injectors.ChangeGiverInjector;
 import com.injectors.MazeInjector;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class ImplementationTests {
 
-    @InjectMocks private final BinaryTreeInjector mazeInjector = new MazeInjector();
-    @InjectMocks private final BinaryTreeInjector changeGiverInjector = new ChangeGiverInjector();
+    @InjectMocks private BinaryTreeInjector mazeInjector = new MazeInjector();
+    @InjectMocks private BinaryTreeInjector changeGiverInjector = new ChangeGiverInjector();
 
     @BeforeClass(alwaysRun = true)
     void testSetup() {
@@ -62,6 +62,12 @@ public class ImplementationTests {
         int[] denoms = {1, 2, 5, 10, 20, 50};
         int amount = 67;
         return changeGiver.pettyChange(denoms, amount);
+    }
+
+    @AfterClass
+    void testTeardown(){
+        mazeInjector = null;
+        changeGiverInjector = null;
     }
 
 }
