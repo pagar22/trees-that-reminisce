@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @see BinaryTreeBase Binary Tree
  * @see Node
  */
-public class AVLTree<Item> extends BinaryTreeBase<Item>{
+public class AVLTree<Item> extends BinaryTreeBase<Item> implements BinaryTreeInterface<Item>{
 
     public Node<Item> root;
 
