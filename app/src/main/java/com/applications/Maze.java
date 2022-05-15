@@ -8,11 +8,8 @@ public class Maze implements Application{
     private int cols;
     private final BinaryTreeInterface<String> visited;
 
-    public Maze(char[][] maze, BinaryTreeInterface<String> visited) {
-        if (visited == null || maze == null) throw new IllegalArgumentException("Instances cannot be null");
-        this.maze = maze;
-        this.rows =  maze.length - 1;
-        this.cols = maze[0].length - 1;
+    public Maze(BinaryTreeInterface<String> visited) {
+        if (visited == null) throw new IllegalArgumentException("Tree cannot be null :(");
         this.visited = visited;
     }
 
