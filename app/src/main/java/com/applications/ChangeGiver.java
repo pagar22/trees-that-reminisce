@@ -7,6 +7,7 @@ public class ChangeGiver implements Application{
     private final BinaryTreeInterface<KeyValuePair<Integer, Integer>> calculated;
 
     public ChangeGiver(BinaryTreeInterface<KeyValuePair<Integer, Integer>> calculated) {
+        if (calculated == null) throw new IllegalArgumentException("Tree cannot be null :(");
         this.calculated = calculated;
     }
 
