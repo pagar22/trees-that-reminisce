@@ -1,6 +1,6 @@
 package com.injectors;
 
-import com.implementations.ChangeGiver;
+import com.applications.ChangeGiver;
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
 

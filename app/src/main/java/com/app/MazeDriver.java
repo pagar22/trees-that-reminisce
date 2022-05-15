@@ -1,6 +1,6 @@
 package com.app;
 
-import com.implementations.Maze;
+import com.applications.Maze;
 import com.injectors.MazeInjector;
 
 public class MazeDriver {

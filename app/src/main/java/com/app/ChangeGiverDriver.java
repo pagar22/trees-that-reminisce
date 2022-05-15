@@ -1,6 +1,6 @@
 package com.app;
 
-import com.implementations.ChangeGiver;
+import com.applications.ChangeGiver;
 import com.injectors.ChangeGiverInjector;
 
 //TODO Key value pair scales very badly, possibly due to numerous constant time operations

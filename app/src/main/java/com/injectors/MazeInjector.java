@@ -1,6 +1,6 @@
 package com.injectors;
 
-import com.implementations.Maze;
+import com.applications.Maze;
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
 

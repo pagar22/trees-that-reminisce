@@ -2,8 +2,8 @@ package com.app;
 
 import static org.testng.Assert.*;
 
-import com.implementations.ChangeGiver;
-import com.implementations.Maze;
+import com.applications.ChangeGiver;
+import com.applications.Maze;
 import com.injectors.BinaryTreeInjector;
 import com.injectors.ChangeGiverInjector;
 import com.injectors.MazeInjector;
@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ImplementationTests {
+public class ApplicationTests {
 
     @InjectMocks private BinaryTreeInjector mazeInjector = new MazeInjector();
     @InjectMocks private BinaryTreeInjector changeGiverInjector = new ChangeGiverInjector();
