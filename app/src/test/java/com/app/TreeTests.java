@@ -2,39 +2,41 @@ package com.app;
 
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
-import com.trees.BinaryTreeInterface;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import java.util.Random;
+
+import static org.testng.Assert.*;
 
 public class TreeTests {
 
     private final ArrayList<Integer> expected = new ArrayList<>();
     private final BinaryTreeBase<Integer> actualTree = new AVLTree<>();
+    int size = 10;
+    int randSize;
 
     @BeforeClass (alwaysRun = true)
     void testSetup() {
         System.out.println("Tree Test Suite Starting Up...");
-        //BinaryTreeBase<Integer> binaryTreeBase = mock(BinaryTreeBase.class);
-        int size = 10;
-        while (size != 0) {
-            size--;
-            int x = (int) (Math.random()*size*100);
-            if (!expected.contains(x)){
+
+        Random rand = new Random();
+        rand.setSeed(System.currentTimeMillis());
+        int i = size;
+        while(i > 0) {
+            i--;
+            int x = Math.abs(rand.nextInt() % 256);
+            if(!expected.contains(x)) {
                 expected.add(x);
                 actualTree.insert(x);
-                /*when(binaryTreeBase.insert(anyInt())).thenReturn(binaryTreeBase.root);
-                Node<Integer> node = binaryTreeBase.insert(x);
-                assertEquals(node, binaryTreeBase.root);*/
-            }
-            else size++;
+            } else i++;
         }
+
         expected.sort(null);
+        randSize = rand.nextInt(size);
         System.out.println("Randomized Sorted Array Generated: " + expected);
         System.out.println("Randomized BST Generated (Preorder): " + actualTree);
     }
@@ -46,11 +48,7 @@ public class TreeTests {
 
     @Test(groups = {"tree", "insert"}, priority = 1)
     public void randomBSTInsertDuplicate() {
-        try {
-            actualTree.insert(expected.size()-1);
-        } catch (IllegalArgumentException illegalArgumentException) {
-            assertEquals(illegalArgumentException, new IllegalArgumentException("Cannot insert duplicate keys :("));
-        }
+        //assertNull(actualTree.insert(expected.get(randSize)));
     }
 
     //Right Heavy Skewed Tree
@@ -82,7 +80,7 @@ public class TreeTests {
 
     @Test(groups = {"tree", "search", "exists"}, priority = 4)
     public void BSTSearchExists() {
-        int x = expected.get((int)(Math.random()*5));
+        int x = expected.get(randSize);
         assertEquals((int) actualTree.search(x).key, x);
     }
 
@@ -95,7 +93,7 @@ public class TreeTests {
     public void BSTDeleteExists() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
         BinaryTreeBase<Integer> actualLocal = actualTree;
-        int x = expectedLocal.get((int)(Math.random()*5));
+        int x = expectedLocal.get(randSize);
         expectedLocal.remove((Object) x);
         actualLocal.delete(x);
         assertEquals(actualLocal.inOrder(actualLocal.root, new ArrayList<>()).toString(), expectedLocal.toString());
