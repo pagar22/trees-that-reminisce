@@ -2,6 +2,7 @@ package com.app;
 
 import com.trees.AVLTree;
 import com.trees.BinaryTreeBase;
+import com.trees.BinaryTreeInterface;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,10 +21,10 @@ public class TreeTests {
     void testSetup() {
         System.out.println("Tree Test Suite Starting Up...");
         //BinaryTreeBase<Integer> binaryTreeBase = mock(BinaryTreeBase.class);
-        int i = 100;
-        while (i != 0) {
-            i--;
-            int x = (int) (Math.random()*i*100);
+        int size = 10;
+        while (size != 0) {
+            size--;
+            int x = (int) (Math.random()*size*100);
             if (!expected.contains(x)){
                 expected.add(x);
                 actualTree.insert(x);
@@ -31,10 +32,11 @@ public class TreeTests {
                 Node<Integer> node = binaryTreeBase.insert(x);
                 assertEquals(node, binaryTreeBase.root);*/
             }
-            else i++;
+            else size++;
         }
         expected.sort(null);
         System.out.println("Randomized Sorted Array Generated: " + expected);
+        System.out.println("Randomized BST Generated (Preorder): " + actualTree);
     }
 
     @Test(groups = {"tree", "random", "insert"}, priority = 1)
@@ -55,25 +57,27 @@ public class TreeTests {
     @Test(groups = {"tree", "skewed", "insert"}, priority = 2)
     public void skewedRHBSTInsert() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
-        actualTree.clear();
+        BinaryTreeBase<Integer> actualLocal = actualTree;
+        actualLocal.clear();
         expectedLocal.sort(null); //sort in ascending order to make right heavy tree
         for (int x : expectedLocal)
-            actualTree.insert(x);
+            actualLocal.insert(x);
 
-        assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
+        assertEquals(actualLocal.inOrder(actualLocal.root, new ArrayList<>()).toString(), expectedLocal.toString());
     }
 
     //Left Heavy Skewed Tree
     @Test(groups = {"tree", "skewed", "insert"}, priority = 3)
     public void skewedLHBSTInsert() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
-        actualTree.clear();
+        BinaryTreeBase<Integer> actualLocal = actualTree;
+        actualLocal.clear();
         expectedLocal.sort(Collections.reverseOrder()); //sort in descending order to make left heavy tree
         for (int x : expectedLocal)
-            actualTree.insert(x);
+            actualLocal.insert(x);
         expectedLocal.sort(null); //sort back to compare with inorder traversal
 
-        assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
+        assertEquals(actualLocal.inOrder(actualLocal.root, new ArrayList<>()).toString(), expectedLocal.toString());
     }
 
     @Test(groups = {"tree", "search", "exists"}, priority = 4)
@@ -90,10 +94,11 @@ public class TreeTests {
     @Test(groups = {"tree", "delete", "exists"}, priority = 6)
     public void BSTDeleteExists() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
+        BinaryTreeBase<Integer> actualLocal = actualTree;
         int x = expectedLocal.get((int)(Math.random()*5));
         expectedLocal.remove((Object) x);
-        actualTree.delete(x);
-        assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expectedLocal.toString());
+        actualLocal.delete(x);
+        assertEquals(actualLocal.inOrder(actualLocal.root, new ArrayList<>()).toString(), expectedLocal.toString());
     }
 
     /*@Test(groups = {"binary_base", "delete", "not_exists"}, priority = 7)
@@ -104,10 +109,10 @@ public class TreeTests {
     //TODO optimize runtime
     @Test(groups = {"tree", "delete", "exists"}, priority = 8)
     public void BSTDeleteAll() {
-        BinaryTreeBase<Integer> binaryTreeLocal = actualTree;
+        BinaryTreeBase<Integer> actualLocal = actualTree;
         for (Integer key : expected)
-            binaryTreeLocal.delete(key);
-        assertEquals(binaryTreeLocal.inOrder(binaryTreeLocal.root, new ArrayList<>()).toString(), "[]");
+            actualLocal.delete(key);
+        assertEquals(actualLocal.inOrder(actualLocal.root, new ArrayList<>()).toString(), "[]");
     }
 
     @AfterClass (alwaysRun = true)
