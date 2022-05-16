@@ -42,18 +42,18 @@ public class TreeTests {
     }
 
     @Test(groups = {"tree", "random", "insert"}, priority = 1)
-    public void randomBSTInsert() {
+    public void InsertRandomElementInBST() {
         assertEquals(actualTree.inOrder(actualTree.root, new ArrayList<>()).toString(), expected.toString());
     }
 
     @Test(groups = {"tree", "insert"}, priority = 1)
-    public void randomBSTInsertDuplicate() {
+    public void InsertDuplicateElementInBST() {
         //assertNull(actualTree.insert(expected.get(randSize)));
     }
 
     //Right Heavy Skewed Tree
     @Test(groups = {"tree", "skewed", "insert"}, priority = 2)
-    public void skewedRHBSTInsert() {
+    public void InsertRightHeavySkewedElementsInBST() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
         BinaryTreeBase<Integer> actualLocal = actualTree;
         actualLocal.clear();
@@ -66,7 +66,7 @@ public class TreeTests {
 
     //Left Heavy Skewed Tree
     @Test(groups = {"tree", "skewed", "insert"}, priority = 3)
-    public void skewedLHBSTInsert() {
+    public void InsertLeftHeavySkewedElementsInBST() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
         BinaryTreeBase<Integer> actualLocal = actualTree;
         actualLocal.clear();
@@ -79,18 +79,18 @@ public class TreeTests {
     }
 
     @Test(groups = {"tree", "search", "exists"}, priority = 4)
-    public void BSTSearchExists() {
+    public void SearchForExistentElementInBST() {
         int x = expected.get(randSize);
         assertEquals((int) actualTree.search(x).key, x);
     }
 
     @Test (groups = {"tree", "search", "not_exists"}, priority = 5)
-    public void BSTSearchDoesNotExist() {
+    public void SearchForNonExistentElementInBST() {
         assertNull(actualTree.search(-1)); //since negative numbers aren't inserted
     }
 
     @Test(groups = {"tree", "delete", "exists"}, priority = 6)
-    public void BSTDeleteExists() {
+    public void DeleteExistentElementFromBST() {
         ArrayList<Integer> expectedLocal = new ArrayList<>(expected);
         BinaryTreeBase<Integer> actualLocal = actualTree;
         int x = expectedLocal.get(randSize);
@@ -106,7 +106,7 @@ public class TreeTests {
 
     //TODO optimize runtime
     @Test(groups = {"tree", "delete", "exists"}, priority = 8)
-    public void BSTDeleteAll() {
+    public void DeleteAllElementsInBST() {
         BinaryTreeBase<Integer> actualLocal = actualTree;
         for (Integer key : expected)
             actualLocal.delete(key);

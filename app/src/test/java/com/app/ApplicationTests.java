@@ -27,22 +27,22 @@ public class ApplicationTests {
     //TODO attributes (depends on, etc.)
 
     @Test(groups = {"implementation", "maze", "base"})
-    public void mazeMockTestBaseTree() {
+    public void MockMazeApplicationUsingBaseTree() {
         assertTrue(executeMaze((Maze) mazeInjector.getBaseTreeInstance()));
     }
 
     @Test(groups = {"implementation", "maze", "avl"})
-    public void mazeMockTestAVLTree() {
+    public void MockMazeApplicationUsingAVLTree() {
         assertTrue(executeMaze((Maze) mazeInjector.getAVLTreeInstance()));
     }
 
     @Test(groups = {"implementation", "change_giver", "base"})
-    public void changeGiverMockTestBaseTree() {
+    public void MockChangeGiverUsingBaseTree() {
         assertEquals(executeChangeGiver((ChangeGiver) changeGiverInjector.getAVLTreeInstance()), 4);
     }
 
     @Test(groups = {"implementation", "change_giver", "avl"})
-    public void changeGiverMockTestAVLTree() {
+    public void MockChangeGiverUsingAVLTree() {
         assertEquals(executeChangeGiver((ChangeGiver) changeGiverInjector.getAVLTreeInstance()), 4);
     }
 
